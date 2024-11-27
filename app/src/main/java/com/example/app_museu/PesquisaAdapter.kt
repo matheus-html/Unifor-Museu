@@ -1,5 +1,6 @@
 package com.example.app_museu
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,7 +11,6 @@ class PesquisaAdapter(
     private val clickListener: ObraClickListener
 ) : RecyclerView.Adapter<CardViewHolder>() {
 
-    // Inicialmente, a lista filtrada está vazia
     private var obrasFiltradas: List<Obra> = obras
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
@@ -23,9 +23,30 @@ class PesquisaAdapter(
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
         holder.bindObra(obrasFiltradas[position])
+
+        holder.itemView.setOnClickListener {
+            val context = holder.itemView.context
+            val obra = obrasFiltradas[position]
+
+            // Intent para navegar para a Tela_AudioObra
+            val intent = Intent(context, Tela_AudioObra::class.java).apply {
+                putExtra("obra_titulo", obra.titulo)
+                putExtra("obra_autor", obra.autor)
+                putExtra("obra_data", obra.data)
+                putExtra("obra_tema", obra.tema)
+                putExtra("obra_descricao", obra.descricao)
+                putExtra("obra_position", position) // Passa a posição da obra
+            }
+            context.startActivity(intent)
+
+        }
+    }
+    fun updateList(newObras: List<Obra>) {
+        obras = newObras
+        obrasFiltradas = newObras
+        notifyDataSetChanged()
     }
 
-    // Método para filtrar as obras
     fun filter(query: String) {
         obrasFiltradas = if (query.isEmpty()) {
             obras // Se não há consulta, exibe todas as obras
@@ -36,16 +57,10 @@ class PesquisaAdapter(
                         obra.autor.lowercase().contains(lowerCaseQuery) ||
                         obra.data.lowercase().contains(lowerCaseQuery) ||
                         obra.tema.lowercase().contains(lowerCaseQuery) ||
-                        (obra.isAdminAdded && obra.titulo.lowercase().contains(lowerCaseQuery)) // Inclui obras do admin
+                        (obra.isAdminAdded && obra.titulo.lowercase()
+                            .contains(lowerCaseQuery)) // Inclui obras do admin
             }
         }
         notifyDataSetChanged()
-    }
-
-    // Método para atualizar a lista de obras no adapter
-    fun updateList(newObras: List<Obra>) {
-        obras = newObras
-        obrasFiltradas = newObras // Atualiza a lista filtrada também
-        notifyDataSetChanged() // Notifica o adapter sobre a atualização
     }
 }

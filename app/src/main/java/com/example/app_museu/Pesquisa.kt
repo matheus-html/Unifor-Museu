@@ -32,6 +32,8 @@ class Pesquisa : Fragment(R.layout.fragment_pesquisa) {
         super.onViewCreated(view, savedInstanceState)
         fb = FirebaseFirestore.getInstance()
 
+        carregarObrasVistas()
+
         pesquisaAdapter = PesquisaAdapter(emptyList(), object : ObraClickListener {
             override fun onClick(obra: Obra) {
                 val sharedPref = requireContext().getSharedPreferences("AppMuseuPrefs", 0)
@@ -70,6 +72,29 @@ class Pesquisa : Fragment(R.layout.fragment_pesquisa) {
         binding.btnAutor.setOnClickListener { filtroSelecionado = "autor"; binding.searchView.queryHint = "Pesquisar por autor" }
         binding.btnData.setOnClickListener { filtroSelecionado = "data"; binding.searchView.queryHint = "Pesquisar por data" }
         binding.btnTema.setOnClickListener { filtroSelecionado = "tema"; binding.searchView.queryHint = "Pesquisar por tema" }
+
+        binding.btnLimparHistorico.setOnClickListener {
+            // Limpar o campo de pesquisa
+            binding.searchView.setQuery("", false)
+
+            // Limpar o histórico de pesquisas (caso esteja armazenado localmente, como em SharedPreferences)
+            val sharedPref = requireContext().getSharedPreferences("AppMuseuPrefs", 0)
+            val editor: SharedPreferences.Editor = sharedPref.edit()
+            editor.remove("obra_titulo")
+            editor.remove("obra_autor")
+            editor.remove("obra_data")
+            editor.remove("obra_tema")
+            editor.remove("obras_vistas") // Limpar também as obras vistas
+            editor.apply()
+
+            // Limpar o RecyclerView
+            binding.recyclerViewObrasVistas.adapter = null
+
+            // Exibir um toast informando que o histórico foi limpo
+            Toast.makeText(requireContext(), "Histórico de pesquisa limpo.", Toast.LENGTH_SHORT).show()
+        }
+
+
     }
 
     private fun pesquisarObras(query: String) {
@@ -94,12 +119,81 @@ class Pesquisa : Fragment(R.layout.fragment_pesquisa) {
                     }
 
                     pesquisaAdapter.updateList(obras)
+
+                    salvarObrasVistas(obras)
                 }
             }
             .addOnFailureListener { exception ->
                 Toast.makeText(requireContext(), "Erro ao buscar obras: ${exception.message}", Toast.LENGTH_SHORT).show()
             }
     }
+
+    private fun salvarObrasVistas(obras: List<Obra>) {
+        val sharedPref = requireContext().getSharedPreferences("AppMuseuPrefs", 0)
+        val editor: SharedPreferences.Editor = sharedPref.edit()
+
+        // Criar um conjunto único de títulos das obras para evitar duplicação
+        val obrasVistas = sharedPref.getStringSet("obras_vistas", mutableSetOf())?.toMutableSet() ?: mutableSetOf()
+
+        obras.forEach { obra ->
+            obrasVistas.add(obra.titulo) // Armazenando o título da obra como identificador
+        }
+
+        editor.putStringSet("obras_vistas", obrasVistas)
+        editor.apply()
+
+        // Atualizar a lista de obras vistas anteriormente no RecyclerView
+        carregarObrasVistas()
+    }
+
+    private fun carregarObrasVistas() {
+        val sharedPref = requireContext().getSharedPreferences("AppMuseuPrefs", 0)
+        val obrasVistas = sharedPref.getStringSet("obras_vistas", mutableSetOf())
+
+        if (obrasVistas != null && obrasVistas.isNotEmpty()) {
+            // Recuperar as obras do Firestore com base nos títulos armazenados
+            val query = fb.collection("obras")
+                .whereIn("titulo", obrasVistas.toList())
+
+            query.get()
+                .addOnSuccessListener { documents ->
+                    val obrasVistasList = mutableListOf<Obra>()
+                    for (document in documents) {
+                        val obra = document.toObject(Obra::class.java)
+                        obrasVistasList.add(obra)
+                    }
+
+                    // Atualizar o RecyclerView com as obras vistas
+                    val obrasVistasAdapter = PesquisaAdapter(obrasVistasList, object : ObraClickListener {
+                        override fun onClick(obra: Obra) {
+                            // Aqui você faz a navegação para a tela "Saiba Mais"
+                            val sharedPref = requireContext().getSharedPreferences("AppMuseuPrefs", 0)
+                            val editor: SharedPreferences.Editor = sharedPref.edit()
+                            editor.putString("obra_titulo", obra.titulo)
+                            editor.putString("obra_autor", obra.autor)
+                            editor.putString("obra_data", obra.data)
+                            editor.putString("obra_tema", obra.tema)
+                            editor.putString("obra_descricao", obra.descricao)
+                            editor.putString("obra_cover", obra.cover) // Armazenando a imagem (URL ou caminho)
+                            editor.apply()
+
+                            // Navegar para a tela 'Saiba Mais'
+                            val intent = Intent(requireContext(), Tela_saiba_mais::class.java)
+                            startActivity(intent)
+                        }
+                    })
+                    binding.recyclerViewObrasVistas.layoutManager = LinearLayoutManager(requireContext())
+                    binding.recyclerViewObrasVistas.adapter = obrasVistasAdapter
+                }
+                .addOnFailureListener { exception ->
+                    Toast.makeText(requireContext(), "Erro ao carregar obras vistas: ${exception.message}", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            // Limpar RecyclerView quando não houver obras vistas
+            binding.recyclerViewObrasVistas.adapter = null
+        }
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
