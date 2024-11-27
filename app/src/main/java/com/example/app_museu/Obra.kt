@@ -9,7 +9,8 @@ data class Obra(
     val data: String = "",
     val descricao: String = "",
     val tema: String = "",
-    val titulo: String = ""
+    val titulo: String = "",
+    var ehFavorito: Boolean = false
 )
  {
 
