@@ -10,6 +10,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 import android.graphics.BitmapFactory
 import android.util.Base64
+import android.util.Log
 
 class Tela_AudioObra : AppCompatActivity(), OnInitListener {
     private lateinit var binding: ActivityTelaAudioObraBinding
@@ -45,41 +46,6 @@ class Tela_AudioObra : AppCompatActivity(), OnInitListener {
 
         tts = TextToSpeech(this, this)
 
-/*        super.onCreate(savedInstanceState)
-        binding = ActivityTelaAudioObraBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        // Recuperando os dados de SharedPreferences
-        val sharedPreferences = getSharedPreferences("obra_data", Context.MODE_PRIVATE)
-        val titulo = sharedPreferences.getString("obra_titulo", "")
-        val autor = sharedPreferences.getString("obra_autor", "")
-        val data = sharedPreferences.getString("obra_data", "")
-        val tema = sharedPreferences.getString("obra_tema", "")
-        val descricao = sharedPreferences.getString("obra_descricao", "")
-        val cover = sharedPreferences.getString("obra_cover", "")
-        val position = sharedPreferences.getInt("obra_position", -1)
-        val imagePath = sharedPreferences.getString("obra_image_path", "")
-
-        // Exibindo os dados na tela
-        binding.obraTitulo.text = titulo
-        binding.obraAutor.text = autor
-        binding.obraData.text = data
-        binding.obraTema.text = tema
-        binding.obraDescricao.text = descricao
-
-        // Carregando a imagem, se disponível
-        if (!imagePath.isNullOrEmpty()) {
-            val imageFile = File(imagePath)
-            if (imageFile.exists()) {
-                val bitmap = BitmapFactory.decodeFile(imageFile.absolutePath)
-                binding.obraImage.setImageBitmap(bitmap)
-            }
-        }
-
-        tts = TextToSpeech(this, this)*/
-
-
-        // Se já tiver carregado as obras antes, carregue localmente
         if (this::listaObras.isInitialized) {
             loadObraData(currentPosition)
         } else {
@@ -90,7 +56,32 @@ class Tela_AudioObra : AppCompatActivity(), OnInitListener {
         binding.play.setOnClickListener { togglePlay() }
         binding.back.setOnClickListener { obraAnterior() }
         binding.forward.setOnClickListener { proximaObra() }
+
+        binding.toggleButton3.setOnClickListener {
+            val obraAtual = listaObras[currentPosition]  // Obter a obra atual
+            toggleFavorite(obraAtual, !obraAtual.ehFavorito)  // Passar o objeto Obra e o novo estado do favorito
+        }
+
     }
+
+    private fun toggleFavorite(obra: Obra, isFavorito: Boolean) {
+        val context = binding.root.context
+        val obra = listaObras[currentPosition]
+        val novoEstadoFavorito = !obra.ehFavorito
+        obra.ehFavorito = isFavorito
+
+        // Atualiza o estado no Firestore
+        updateFavoritoNoFirestore(obra)
+
+        if (isFavorito) {
+            ObrasRepository.addToFavoritos(obra.titulo)
+            Toast.makeText(context, "${obra.titulo} adicionada aos favoritos", Toast.LENGTH_SHORT).show()
+        } else {
+            ObrasRepository.removeFromFavoritos(obra.titulo)
+            Toast.makeText(context, "${obra.titulo} removida dos favoritos", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
     private fun loadObrasFromFirebase() {
         db.collection("obras")
@@ -103,7 +94,8 @@ class Tela_AudioObra : AppCompatActivity(), OnInitListener {
                         data = doc.getString("data") ?: "",
                         tema = doc.getString("tema") ?: "",
                         descricao = doc.getString("descricao") ?: "",
-                        cover = doc.getString("cover") ?: ""
+                        cover = doc.getString("cover") ?: "",
+                        ehFavorito = doc.getBoolean("ehFavorito") ?: false
                     )
                 }
 
@@ -139,7 +131,36 @@ class Tela_AudioObra : AppCompatActivity(), OnInitListener {
                 // Caso o coverBase64 seja nulo, define uma imagem padrão
                 binding.obraImage.setImageResource(R.drawable.default_image)
             }
+
+            binding.toggleButton3.isChecked = obra.ehFavorito
         }
+    }
+
+    private fun updateFavoritoNoFirestore(obra: Obra) {
+        val db = FirebaseFirestore.getInstance()
+
+        // Encontre o documento da obra no Firestore com base no título
+        db.collection("obras").whereEqualTo("titulo", obra.titulo).get()
+            .addOnSuccessListener { querySnapshot ->
+                if (!querySnapshot.isEmpty) {
+                    val documentId = querySnapshot.documents[0].id
+
+                    // Atualize o campo 'ehFavorito' dentro do documento da obra
+                    db.collection("obras").document(documentId)
+                        .update("ehFavorito", obra.ehFavorito) // Atualiza o campo "ehFavorito"
+                        .addOnSuccessListener {
+                            Log.d("FavoritosViewHolder", "Campo 'ehFavorito' atualizado com sucesso para ${obra.titulo}")
+                        }
+                        .addOnFailureListener { exception ->
+                            Log.e("FavoritosViewHolder", "Erro ao atualizar campo 'ehFavorito' para ${obra.titulo}: ${exception.message}")
+                        }
+                } else {
+                    Log.e("FavoritosViewHolder", "Documento da obra não encontrado para ${obra.titulo}")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.e("FavoritosViewHolder", "Erro ao buscar o documento da obra: ${exception.message}")
+            }
     }
 
 
