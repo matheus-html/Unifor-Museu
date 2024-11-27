@@ -36,7 +36,8 @@
             android:id="@+id/radio_current_exhibition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Exposição Atual" />
+            android:text="Exposição Atual"
+            android:checked="true"/>
 
     </RadioGroup>
 
