@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="412dp"
+        android:layout_height="268dp"
+        android:background="@null"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/textHistoria"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/lake2" />
+
+    <TextView
+        android:id="@+id/textHistoria"
+        android:layout_width="370dp"
+        android:layout_height="367dp"
+        android:layout_margin="16dp"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:lineSpacingExtra="4dp"
+        android:padding="8dp"
+        android:text="A missão do nosso museu é conectar a comunidade com a história, a arte e a cultura, oferecendo um espaço de aprendizado, reflexão e inspiração. Nosso compromisso é preservar e promover o patrimônio cultural, estimulando a curiosidade e o respeito pela diversidade através de exposições interativas e programas educativos. Queremos ser um ponto de encontro onde todos possam explorar, criar e compartilhar experiências significativas."
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton" />
+</androidx.constraintlayout.widget.ConstraintLayout>

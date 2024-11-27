@@ -1,0 +1,6 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Estado quando o botão está marcado (favorito) -->
+    <item android:state_checked="true" android:drawable="@drawable/favorite_full" />
+    <!-- Estado padrão quando o botão está desmarcado (não favorito) -->
+    <item android:drawable="@drawable/baseline_favorite_border_24" />
+</selector>

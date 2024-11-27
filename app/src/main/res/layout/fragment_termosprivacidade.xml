@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_vertical"
+                android:layout_marginBottom="16dp"
+                android:text="Termos de Uso e Privacidade"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Termos de Uso"
+                android:textSize="18sp"
+                android:layout_marginTop="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Estes Termos de Serviço refletem a maneira como os negócios do App Museu funcionam, as leis que se aplicam à nossa empresa e determinados pontos em que sempre acreditamos. Como resultado, estes termos ajudam a definir a relação do App Museu com você na medida da sua interação com os nossos serviços. Por exemplo, estes termos incluem as seguintes seções:  O que você pode esperar de nós: Descreve o modo como fornecemos e desenvolvemos nossos serviços.  O que esperamos de você: Estabelece certas regras para usar nossos serviços.  Conteúdo nos serviços do App Museu: Descreve os direitos de propriedade intelectual com relação ao conteúdo que você encontra nos nossos serviços, seja ele pertencente a você, ao App Museu ou a outras pessoas.  Em caso de problemas ou discordâncias: Descreve outros direitos legais que você tem e o que esperar caso estes termos sejam violados.  Compreender estes termos é importante porque, para usar nossos serviços, você precisa aceitá-los." />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Política de Privacidade"
+                android:textSize="18sp"
+                android:layout_marginTop="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Quando você usa nossos serviços, está confiando a nós suas informações. Entendemos que isso é uma grande responsabilidade e trabalhamos duro para proteger essas informações e colocar você no controle." />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Esta Política de Privacidade destina-se a ajudar você a entender quais informações coletamos, por que as coletamos e como você pode atualizar, gerenciar, exportar e excluir essas informações." />
+
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>
