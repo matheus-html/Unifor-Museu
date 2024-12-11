@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -117,13 +118,13 @@ class ObrasAdapter(private var obrasList: MutableList<Obra>) :
 
     class ObraViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val coverImageView: ImageView = itemView.findViewById(R.id.coverImageView)
-        val buttonViewObra: Button = itemView.findViewById(R.id.buttonViewObra)
+        val buttonViewObra: ImageButton = itemView.findViewById(R.id.buttonViewObra)
         val titulo: TextView = itemView.findViewById(R.id.titulo)
         val autor: TextView = itemView.findViewById(R.id.autor)
         val tema: TextView = itemView.findViewById(R.id.tema)
         val data: TextView = itemView.findViewById(R.id.data)
         val descricao: TextView = itemView.findViewById(R.id.descricao)
-        val buttonEdit: Button = itemView.findViewById(R.id.ButtonEditObra)
-        val buttonDelete: Button = itemView.findViewById(R.id.ButtonRemoveObra)
+        val buttonEdit: ImageButton = itemView.findViewById(R.id.ButtonEditObra)
+        val buttonDelete: ImageButton = itemView.findViewById(R.id.ButtonRemoveObra)
     }
 }

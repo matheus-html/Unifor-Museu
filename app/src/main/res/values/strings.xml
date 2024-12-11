@@ -58,4 +58,7 @@
     <string name="termos_de_privacidade">Termos de privacidade</string>
     <string name="sair_logout">Sair/Logout</string>
     <string name="configura_es_conta">Configurações Conta</string>
+    <string name="view">Ver</string>
+    <string name="edit">Editar</string>
+    <string name="delete">Excluir</string>
 </resources>

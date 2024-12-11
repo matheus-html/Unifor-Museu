@@ -43,18 +43,21 @@
                 android:id="@+id/button_historia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#1E3A8A"
                 android:text="História" />
 
             <Button
                 android:id="@+id/button_missao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#1E3A8A"
                 android:text="Missão" />
 
             <Button
                 android:id="@+id/buttonInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#1E3A8A"
                 android:text="+ Info" />
 
         </LinearLayout>

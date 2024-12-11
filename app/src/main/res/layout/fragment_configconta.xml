@@ -45,6 +45,7 @@
             android:layout_marginBottom="48dp"
             android:text="@string/editar_foto_de_perfil"
             app:layout_constraintBottom_toTopOf="@+id/edit_name"
+            android:backgroundTint="#1E3A8A"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -112,6 +113,7 @@
             android:text="Salvar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:backgroundTint="#1E3A8A"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edit_username" />
 

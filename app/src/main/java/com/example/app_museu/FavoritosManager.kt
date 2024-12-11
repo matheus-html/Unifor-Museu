@@ -9,7 +9,6 @@ object FavoritosManager {
 
     private val db = FirebaseFirestore.getInstance()
 
-    // Função para adicionar ou remover obras dos favoritos
     fun adicionarOuRemoverFavorito(userId: String, obraId: String, adicionar: Boolean) {
         val favoritosRef = db.collection("contas").document(userId).collection("Favoritos")
 
@@ -34,7 +33,6 @@ object FavoritosManager {
         }
     }
 
-    // Função para atualizar o campo "ehFavorito" nas obras
     fun atualizarStatusFavorito(obraId: String, favorito: Boolean) {
         val obraRef = db.collection("Obras").document(obraId)
 
@@ -47,7 +45,6 @@ object FavoritosManager {
             }
     }
 
-    // Função para verificar se uma obra está favoritada
     fun verificarSeFavorito(userId: String, obraId: String, callback: (Boolean) -> Unit) {
         val favoritosRef = db.collection("Usuarios").document(userId).collection("Favoritos")
 
@@ -65,7 +62,6 @@ object FavoritosManager {
             }
     }
 
-    // Função para exibir todas as obras favoritas
     fun exibirObrasFavoritas(userId: String, callback: (List<String>) -> Unit) {
         val favoritosRef = db.collection("Usuarios").document(userId).collection("Favoritos")
 
