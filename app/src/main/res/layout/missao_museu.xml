@@ -27,7 +27,7 @@
         android:gravity="center"
         android:lineSpacingExtra="4dp"
         android:padding="8dp"
-        android:text="A missão do nosso museu é conectar a comunidade com a história, a arte e a cultura, oferecendo um espaço de aprendizado, reflexão e inspiração. Nosso compromisso é preservar e promover o patrimônio cultural, estimulando a curiosidade e o respeito pela diversidade através de exposições interativas e programas educativos. Queremos ser um ponto de encontro onde todos possam explorar, criar e compartilhar experiências significativas."
+        android:text="@string/a_miss_o_do_nosso_museu_conectar_a_comunidade_com_a_hist_ria_a_arte_e_a_cultura_oferecendo_um_espa_o_de_aprendizado_reflex_o_e_inspira_o_nosso_compromisso_preservar_e_promover_o_patrim_nio_cultural_estimulando_a_curiosidade_e_o_respeito_pela_diversidade_atrav_s_de_exposi_es_interativas_e_programas_educativos_queremos_ser_um_ponto_de_encontro_onde_todos_possam_explorar_criar_e_compartilhar_experi_ncias_significativas"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

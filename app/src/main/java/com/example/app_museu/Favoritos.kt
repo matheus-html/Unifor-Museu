@@ -36,7 +36,6 @@ class FavoritosFragment : Fragment() {
     fun updateFavoritosList() {
         val db = FirebaseFirestore.getInstance()
 
-        // Consulta para buscar as obras com "ehFavorito" = true
         db.collection("obras")
             .whereEqualTo("ehFavorito", true)
             .get()
@@ -57,10 +56,8 @@ class FavoritosFragment : Fragment() {
                     recyclerView.visibility = View.VISIBLE
                 }
 
-                // Atualiza o adapter do RecyclerView com as obras favoritas
                 favoritosAdapter = FavoritosAdapter(favoritosObras, object : ObraClickListener {
                     override fun onClick(obra: Obra) {
-                        // Lógica para abrir a tela de detalhes da obra
                         val sharedPref = requireContext().getSharedPreferences("AppMuseuPrefs", 0)
                         val editor = sharedPref.edit()
                         editor.putString("obra_titulo", obra.titulo)
@@ -85,15 +82,11 @@ class FavoritosFragment : Fragment() {
 
     fun removeFavorito(obra: Obra) {
         val db = FirebaseFirestore.getInstance()
-
-        // Encontra o documento da obra no Firestore com base no título
         val obraRef = db.collection("obras").document(obra.titulo)
-
-        // Atualiza o campo "ehFavorito" para false no Firestore
         obraRef.update("ehFavorito", false)
             .addOnSuccessListener {
                 Toast.makeText(requireContext(), "${obra.titulo} removida dos favoritos", Toast.LENGTH_SHORT).show()
-                updateFavoritosList() // Atualiza a lista de favoritos após a remoção
+                updateFavoritosList()
             }
             .addOnFailureListener { exception ->
                 Log.e("FavoritosFragment", "Erro ao remover a obra dos favoritos: ${exception.message}")

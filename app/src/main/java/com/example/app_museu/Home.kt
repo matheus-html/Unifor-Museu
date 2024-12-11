@@ -11,9 +11,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.app_museu.databinding.FragmentHomeBinding
 import com.google.firebase.firestore.FirebaseFirestore
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.util.Base64
 
 class Home : Fragment(), ObraClickListener {
 
@@ -25,16 +22,6 @@ class Home : Fragment(), ObraClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-/*        ObrasRepository.inicializarObras()
-
-        val listaCombinada = mutableListOf<Obra>().apply {
-            addAll(ObrasRepository.listaObras)
-            addAll(ObrasRepository.listaObrasAdmin)
-        }*/
-
-/*        adapter = ObraAdapter(listaCombinada, this)
-        binding.recyclerView.adapter = adapter*/
 
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
 
@@ -77,18 +64,5 @@ class Home : Fragment(), ObraClickListener {
         }
         startActivity(Intent(requireContext(), Tela_saiba_mais::class.java))
     }
-
-/*
-    fun decodeBase64ToBitmap(base64String: String?): Bitmap? {
-        if (base64String.isNullOrEmpty()) return null
-        return try {
-            val decodedBytes = Base64.decode(base64String, Base64.DEFAULT)
-            BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
-        } catch (e: IllegalArgumentException) {
-            e.printStackTrace()
-            null
-        }
-    }
-*/
 
 }

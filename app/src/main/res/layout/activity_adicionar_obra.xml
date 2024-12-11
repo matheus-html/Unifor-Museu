@@ -19,7 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="32dp" />
 
-    <!-- ImageView para mostrar a imagem -->
     <ImageView
         android:id="@+id/imageViewPreview"
         android:layout_width="200dp"
@@ -34,7 +33,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewTitle" />
 
-    <!-- Botão para adicionar a imagem -->
     <Button
         android:id="@+id/buttonAddImage"
         android:layout_width="wrap_content"
@@ -43,6 +41,7 @@
         app:layout_constraintTop_toBottomOf="@id/imageViewPreview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="#1E3A8A"
         android:layout_marginTop="16dp" />
 
     <EditText
@@ -111,6 +110,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="#1E3A8A"
         android:layout_marginBottom="32dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,7 +27,7 @@
         android:gravity="center"
         android:lineSpacingExtra="4dp"
         android:padding="8dp"
-        android:text="O Museu Cultural é um dos principais espaços dedicados à disseminação da arte no Brasil. Desde sua inauguração, ele oferece acesso gratuito a exposições, promovendo a democratização do conhecimento artístico e cultural, antes restrito a pequenos grupos. Com uma rica programação, o museu já recebeu exposições de artistas renomados e valoriza também a arte local. Reconhecido como um importante destino cultural, ele se destaca por suas mostras históricas e contemporâneas. O Museu Cultural é um espaço vibrante que atrai milhares de visitantes, celebrando a diversidade e a riqueza das identidades culturais do Brasil."
+        android:text="@string/o_museu_cultural_um_dos_principais_espa_os_dedicados_dissemina_o_da_arte_no_brasil_desde_sua_inaugura_o_ele_oferece_acesso_gratuito_a_exposi_es_promovendo_a_democratiza_o_do_conhecimento_art_stico_e_cultural_antes_restrito_a_pequenos_grupos_com_uma_rica_programa_o_o_museu_j_recebeu_exposi_es_de_artistas_renomados_e_valoriza_tamb_m_a_arte_local_reconhecido_como_um_importante_destino_cultural_ele_se_destaca_por_suas_mostras_hist_ricas_e_contempor_neas_o_museu_cultural_um_espa_o_vibrante_que_atrai_milhares_de_visitantes_celebrando_a_diversidade_e_a_riqueza_das_identidades_culturais_do_brasil"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

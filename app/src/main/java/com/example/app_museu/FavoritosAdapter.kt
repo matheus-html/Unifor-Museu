@@ -42,13 +42,11 @@ class FavoritosViewHolder(
 ) : RecyclerView.ViewHolder(cardCellBinding.root) {
 
     fun bindObra(obra: Obra) {
-        // Preencher os campos de texto
         cardCellBinding.titulo.text = obra.titulo
         cardCellBinding.autor.text = obra.autor
         cardCellBinding.data.text = obra.data
         cardCellBinding.tema.text = obra.tema
 
-        // Decodificar a imagem em Base64 e exibir no ImageView
         val bitmap = decodeBase64ToBitmap(obra.cover)
         if (bitmap != null) {
             cardCellBinding.cover.setImageBitmap(bitmap)
@@ -56,15 +54,11 @@ class FavoritosViewHolder(
             cardCellBinding.cover.setImageResource(R.drawable.default_image) // Placeholder
         }
 
-        // Atualizar o estado do ToggleButton para refletir se é favorito
         cardCellBinding.toggleButton2.isChecked = obra.ehFavorito
-
-        // Configurar clique para navegar até a tela de detalhes
         cardCellBinding.cardView.setOnClickListener {
             clickListener.onClick(obra)
         }
 
-        // Configurar clique no botão de favoritos para adicionar/remover do Firestore
         cardCellBinding.toggleButton2.setOnCheckedChangeListener { _, isChecked ->
             toggleFavorite(obra, isChecked)
         }
@@ -73,14 +67,9 @@ class FavoritosViewHolder(
 
     private fun toggleFavorite(obra: Obra, isFavorito: Boolean) {
         val context = cardCellBinding.root.context
-
-        // Atualizar o estado favorito localmente
         obra.ehFavorito = isFavorito
-
-        // Atualizar o Firestore com o novo estado
         updateFavoritoNoFirestore(obra)
 
-        // Adicionar ou remover da lista de favoritos
         if (isFavorito) {
             ObrasRepository.addToFavoritos(obra.titulo)
             Toast.makeText(context, "${obra.titulo} adicionada aos favoritos", Toast.LENGTH_SHORT).show()
@@ -93,16 +82,12 @@ class FavoritosViewHolder(
 
     private fun updateFavoritoNoFirestore(obra: Obra) {
         val db = FirebaseFirestore.getInstance()
-
-        // Encontre o documento da obra no Firestore com base no título
         db.collection("obras").whereEqualTo("titulo", obra.titulo).get()
             .addOnSuccessListener { querySnapshot ->
                 if (!querySnapshot.isEmpty) {
                     val documentId = querySnapshot.documents[0].id
-
-                    // Atualize o campo 'ehFavorito' dentro do documento da obra
                     db.collection("obras").document(documentId)
-                        .update("ehFavorito", obra.ehFavorito) // Atualiza o campo "ehFavorito"
+                        .update("ehFavorito", obra.ehFavorito)
                         .addOnSuccessListener {
                             Log.d("FavoritosViewHolder", "Campo 'ehFavorito' atualizado com sucesso para ${obra.titulo}")
                         }
@@ -117,7 +102,6 @@ class FavoritosViewHolder(
                 Log.e("FavoritosViewHolder", "Erro ao buscar o documento da obra: ${exception.message}")
             }
     }
-
 
     private fun decodeBase64ToBitmap(base64String: String?): Bitmap? {
         if (base64String.isNullOrEmpty()) return null

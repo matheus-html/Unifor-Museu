@@ -7,12 +7,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-    <!-- Título "Home" -->
     <TextView
         android:id="@+id/text_home_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Home"
+        android:text="@string/title_home"
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_marginTop="16dp"
@@ -21,7 +20,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:gravity="center" />
 
-    <!-- RadioGroup com Exposição Atual e Exposição 2023 -->
     <RadioGroup
         android:id="@+id/radio_group_expositions"
         android:layout_width="wrap_content"
@@ -36,12 +34,10 @@
             android:id="@+id/radio_current_exhibition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Exposição Atual"
+            android:text="@string/exposi_o_atual"
             android:checked="true"/>
 
     </RadioGroup>
-
-    <!-- RecyclerView para a lista de exposições -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -27,8 +27,6 @@ class PesquisaAdapter(
         holder.itemView.setOnClickListener {
             val context = holder.itemView.context
             val obra = obrasFiltradas[position]
-
-            // Intent para navegar para a Tela_AudioObra
             val intent = Intent(context, Tela_AudioObra::class.java).apply {
                 putExtra("obra_titulo", obra.titulo)
                 putExtra("obra_autor", obra.autor)
@@ -49,7 +47,7 @@ class PesquisaAdapter(
 
     fun filter(query: String) {
         obrasFiltradas = if (query.isEmpty()) {
-            obras // Se não há consulta, exibe todas as obras
+            obras
         } else {
             val lowerCaseQuery = query.lowercase()
             obras.filter { obra ->

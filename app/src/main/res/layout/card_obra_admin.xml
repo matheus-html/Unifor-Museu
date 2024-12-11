@@ -85,32 +85,37 @@
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- Botões -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <Button
+                <ImageButton
                     android:id="@+id/buttonViewObra"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:text="View" />
+                    android:background="@null"
+                    android:contentDescription="@string/view"
+                    android:src="@drawable/ic_view" />
 
-                <Button
+                <ImageButton
                     android:id="@+id/ButtonEditObra"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:text="Edit" />
+                    android:background="@null"
+                    android:contentDescription="@string/edit"
+                    android:src="@drawable/ic_edit" />
 
-                <Button
+                <ImageButton
                     android:id="@+id/ButtonRemoveObra"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Delete" />
+                    android:background="@null"
+                    android:contentDescription="@string/delete"
+                    android:src="@drawable/ic_delete" />
             </LinearLayout>
         </LinearLayout>
 

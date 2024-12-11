@@ -78,7 +78,7 @@ class TelaEditarObra : AppCompatActivity() {
                 obraImageUri = data?.data
                 obraImageUri?.let {
                     imageView.setImageURI(it)
-                    convertImageToBase64()  // Converte a imagem para base64
+                    convertImageToBase64()
                 }
             }
         }

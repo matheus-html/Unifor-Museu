@@ -13,7 +13,7 @@
             android:id="@+id/titlePesquisar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pesquisar"
+            android:text="@string/pesquisar"
             android:textSize="24sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp"
@@ -38,7 +38,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titlePesquisar" />
 
-        <!-- Botões para selecionar o filtro de pesquisa -->
         <LinearLayout
             android:id="@+id/filterButtonsLayout"
             android:layout_width="match_parent"
@@ -54,27 +53,31 @@
                 android:id="@+id/btnTitulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Título" />
+                android:backgroundTint="#1E3A8A"
+                android:text="@string/t_tulo" />
 
             <Button
                 android:id="@+id/btnAutor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Autor"
+                android:backgroundTint="#1E3A8A"
+                android:text="@string/autor"
                 android:layout_marginStart="16dp" />
 
             <Button
                 android:id="@+id/btnData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Data"
+                android:text="@string/data"
+                android:backgroundTint="#1E3A8A"
                 android:layout_marginStart="16dp" />
 
             <Button
                 android:id="@+id/btnTema"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tema"
+                android:backgroundTint="#1E3A8A"
+                android:text="@string/tema"
                 android:layout_marginStart="16dp" />
         </LinearLayout>
 
@@ -94,7 +97,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Obras Vistas Anteriormente"
+            android:text="@string/obras_vistas_anteriormente"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/btnLimparHistorico"
@@ -120,14 +123,11 @@
             android:layout_marginStart="128dp"
             android:layout_marginEnd="129dp"
             android:layout_marginBottom="16dp"
-            android:text="Limpar Histórico"
+            android:text="@string/limpar_hist_rico"
             app:layout_constraintBottom_toTopOf="@+id/recyclerViewObrasVistas"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:backgroundTint="#1E3A8A"
             app:layout_constraintTop_toBottomOf="@+id/titleObrasVistas" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </FrameLayout>

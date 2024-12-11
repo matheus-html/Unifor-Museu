@@ -71,7 +71,6 @@ class configConta : Fragment() {
                         editName.setText(name)
                         editUsername.setText(username)
 
-                        // Se a imagem estiver disponível em base64, decodifique e mostre
                         profileImageUrl?.let {
                             val decodedImage = decodeBase64ToImage(it)
                             imageProfile.setImageBitmap(decodedImage)
@@ -101,14 +100,6 @@ class configConta : Fragment() {
             return
         }
 
-/*        val sharedPreferences = requireContext().getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
-        with(sharedPreferences.edit()) {
-            putString("Name", name)
-            putString("Username", username)
-            putString("ProfileImage", imageBase64)
-            apply()
-        }*/
-
         val sharedPreferences = requireContext().getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
         with(sharedPreferences.edit()) {
             putString("Name", name)
@@ -121,16 +112,11 @@ class configConta : Fragment() {
         val userDocumentId = sharedPreferences.getString("UserId", null)
 
         if (userDocumentId != null) {
-            // Salvar nome de usuário e nome no Firebase
             val userRef = fb.collection("contas").document(userDocumentId)
-
-            // Atualiza nome e nome de usuário, com ou sem foto
             val updates = hashMapOf<String, Any>(
                 "nome" to name,
                 "nomeUsuario" to username
             )
-
-            // Se a foto foi alterada, atualiza a foto também
             imageBase64?.let {
                 updates["fotoDePerfil"] = it
             }
@@ -148,8 +134,6 @@ class configConta : Fragment() {
     private fun updateNavHeader(name: String, username: String) {
         val activity = requireActivity() as? TelaHome
         activity?.updateNavHeader(name, username)
-
-        // Se a imagem foi alterada, atualize a imagem no NavHeader
         imageBase64?.let {
             val decodedImage = decodeBase64ToImage(it)
             activity?.updateNavHeaderImage(decodedImage)

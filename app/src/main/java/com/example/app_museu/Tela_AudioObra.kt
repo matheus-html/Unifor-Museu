@@ -58,8 +58,8 @@ class Tela_AudioObra : AppCompatActivity(), OnInitListener {
         binding.forward.setOnClickListener { proximaObra() }
 
         binding.toggleButton3.setOnClickListener {
-            val obraAtual = listaObras[currentPosition]  // Obter a obra atual
-            toggleFavorite(obraAtual, !obraAtual.ehFavorito)  // Passar o objeto Obra e o novo estado do favorito
+            val obraAtual = listaObras[currentPosition]
+            toggleFavorite(obraAtual, !obraAtual.ehFavorito)
         }
 
     }
@@ -103,7 +103,7 @@ class Tela_AudioObra : AppCompatActivity(), OnInitListener {
                     if (currentPosition >= listaObras.size) {
                         currentPosition = listaObras.size - 1
                     }
-                    loadObraData(currentPosition)  // Carrega os dados da obra selecionada
+                    loadObraData(currentPosition)
                 }
             }
             .addOnFailureListener { exception ->
@@ -120,15 +120,13 @@ class Tela_AudioObra : AppCompatActivity(), OnInitListener {
             binding.obraTema.text = obra.tema
             binding.obraDescricao.text = obra.descricao
 
-            // Verificando se o coverBase64 não é nulo
             if (!obra.cover.isNullOrEmpty()) {
-                // Decodificando a string Base64 para Bitmap
                 val decodedString = Base64.decode(obra.cover, Base64.DEFAULT)
                 val decodedBitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-                // Atualizando a imagem na ImageView
+
                 binding.obraImage.setImageBitmap(decodedBitmap)
             } else {
-                // Caso o coverBase64 seja nulo, define uma imagem padrão
+
                 binding.obraImage.setImageResource(R.drawable.default_image)
             }
 
@@ -138,16 +136,13 @@ class Tela_AudioObra : AppCompatActivity(), OnInitListener {
 
     private fun updateFavoritoNoFirestore(obra: Obra) {
         val db = FirebaseFirestore.getInstance()
-
-        // Encontre o documento da obra no Firestore com base no título
         db.collection("obras").whereEqualTo("titulo", obra.titulo).get()
             .addOnSuccessListener { querySnapshot ->
                 if (!querySnapshot.isEmpty) {
                     val documentId = querySnapshot.documents[0].id
 
-                    // Atualize o campo 'ehFavorito' dentro do documento da obra
                     db.collection("obras").document(documentId)
-                        .update("ehFavorito", obra.ehFavorito) // Atualiza o campo "ehFavorito"
+                        .update("ehFavorito", obra.ehFavorito)
                         .addOnSuccessListener {
                             Log.d("FavoritosViewHolder", "Campo 'ehFavorito' atualizado com sucesso para ${obra.titulo}")
                         }

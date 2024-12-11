@@ -18,14 +18,14 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="32dp"/>
 
-    <!-- Campo para adicionar a imagem -->
-
     <Button
         android:id="@+id/buttonAddImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="Adicionar Imagem"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#1E3A8A"
         app:layout_constraintBottom_toTopOf="@+id/editTextTitulo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.512"
@@ -104,6 +104,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="Salvar Alterações"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#1E3A8A"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -125,6 +127,5 @@
         app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

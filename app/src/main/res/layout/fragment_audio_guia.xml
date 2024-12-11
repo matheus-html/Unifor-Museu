@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Título "Audio Guia" -->
         <TextView
             android:id="@+id/textViewTitle"
             android:layout_width="wrap_content"
@@ -25,7 +24,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- RecyclerView para exibir as obras -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewObrasAUDIOGUIA"
             android:layout_width="match_parent"

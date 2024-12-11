@@ -63,29 +63,25 @@ class AudioGuia : Fragment(), ObraClickListener {
         try {
             val decodedString = Base64.decode(base64Image, Base64.DEFAULT)
             val decodedBitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-
-            // Redimensiona a imagem para um tamanho menor
-            val resizedBitmap = Bitmap.createScaledBitmap(decodedBitmap, 500, 500, false)  // Reduz o tamanho da imagem
-
+            val resizedBitmap = Bitmap.createScaledBitmap(decodedBitmap, 500, 500, false)
             val outputStream = FileOutputStream(file)
             resizedBitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
             outputStream.close()
+
         } catch (e: Exception) {
             e.printStackTrace()
         }
 
-        return file.absolutePath  // Retorna o caminho do arquivo salvo
+        return file.absolutePath
     }
 
     override fun onClick(obra: Obra) {
         val position = listaObras.indexOf(obra)
         val imagePath = saveImageToCache(requireContext(), obra.cover)
 
-        // Salva os dados da obra e a imagem no SharedPreferences
         val sharedPreferences = requireContext().getSharedPreferences("obra_data", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
 
-        // Salvando os dados da obra como strings
         editor.putString("obra_titulo", obra.titulo)
         editor.putString("obra_autor", obra.autor)
         editor.putString("obra_data", obra.data)
@@ -93,14 +89,11 @@ class AudioGuia : Fragment(), ObraClickListener {
         editor.putString("obra_descricao", obra.descricao)
         editor.putString("obra_cover", obra.cover)
         editor.putString("obra_image_path", imagePath)
-
-        // Commit/Apply as alterações
         editor.apply()
 
-        // Passa a chave de referência com a Intent
         val intent = Intent(requireContext(), Tela_AudioObra::class.java).apply {
             putExtra("obra_position", position)
-            putExtra("obra_key", "obra_data")  // Passa a chave do SharedPreferences
+            putExtra("obra_key", "obra_data")
         }
         startActivity(intent)
     }

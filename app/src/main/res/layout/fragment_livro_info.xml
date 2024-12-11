@@ -10,12 +10,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- Título "Livro Informativo" -->
         <TextView
             android:id="@+id/textViewTitulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Livro Informativo"
+            android:text="@string/livro_informativo"
             android:textSize="24sp"
             android:textStyle="bold"
             android:gravity="center"
@@ -43,22 +42,22 @@
                 android:id="@+id/button_historia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="História" />
+                android:backgroundTint="#1E3A8A"
+                android:text="@string/hist_ria" />
 
             <Button
                 android:id="@+id/button_missao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Missão" />
+                android:backgroundTint="#1E3A8A"
+                android:text="@string/miss_o" />
 
             <Button
                 android:id="@+id/buttonInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="+ Info" />
-
+                android:backgroundTint="#1E3A8A"
+                android:text="@string/info" />
         </LinearLayout>
-
     </LinearLayout>
-
 </FrameLayout>

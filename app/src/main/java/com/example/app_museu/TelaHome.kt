@@ -157,7 +157,6 @@ class TelaHome : AppCompatActivity() {
         if (imageView != null) {
             imageView.setImageBitmap(bitmap)
         } else {
-            // Tratar o caso onde o ImageView não é encontrado
             Toast.makeText(this, "Erro: ImageView não encontrado", Toast.LENGTH_SHORT).show()
         }
     }
